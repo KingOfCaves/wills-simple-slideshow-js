@@ -1,0 +1,106 @@
+:root {
+	--selector-transition: 0.5s; /* TIMING OF SELECTOR TRANSITIONS */
+	--imaged-cycle-transition: 2s; /* TIMING OF CYCLING TRANSITION*/
+    --selector-active: #66bb8a; /* COLOR FOR ACTIVE SELECTOR */
+    --selector-muted: #555555; /* COLOR FOR UNTOUCHED SELECTOR */
+    --selector-hover: #cccccc; /* COLOR FOR HOVERING OVER SELECTOR */
+}
+
+html {
+    font-size: 62.5%;
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+*:link,
+*:visited {
+    color: currentColor;
+    text-decoration: none;
+}
+
+body {
+    user-select: none;
+	font-size: 2rem;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.slideshow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 72rem;
+    height: 36rem;
+}
+
+.slideshow__title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	transform: translate(0, -100%);
+	width: 100%;
+	padding: 1rem 0;
+	color: var(--selector-muted);
+}
+
+.slideshow__img {
+	opacity: 0;
+	z-index: -1;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: z-index 0s var(--imaged-cycle-transition), var(--imaged-cycle-transition) opacity;
+}
+
+.slideshow__img.active {
+	z-index: 1;
+    opacity: 1;
+}
+
+.slideshow__img.exit {
+    opacity: 1;
+}
+
+.slideshow__selectors {
+    position: absolute;
+    top: 100%;
+	right: 0;
+	height: 3rem;
+	width: 100%;
+    margin: 1rem 0;
+    transform: translate(0, 0);
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.slideshow__selector {
+    width: 1rem;
+    height: 50%;
+    background-color: var(--selector-muted);
+    transition: var(--selector-transition) all;
+    /* border-bottom: 3px solid black; */
+}
+
+.slideshow__selectors > :not(:last-child) {
+    margin-right: 6px;
+}
+
+.slideshow__selector:hover {
+    background-color: var(--selector-hover);
+}
+
+.slideshow__selector.active {
+	background-color: var(--selector-active);
+    height: 100%;	
+}
