@@ -1,7 +1,9 @@
-(function(){
+(function() {
 	// VARIABLES
 	const $slideshow = document.querySelector('.slideshow__imgs');
-	const $slideshowImages = Array.from(document.querySelectorAll('.slideshow__img'));
+	const $slideshowImages = Array.from(
+		document.querySelectorAll('.slideshow__img')
+	);
 	const $slideshowSelection = document.querySelector('.slideshow__selectors');
 	let $slideshowSelectors = [];
 	let currentIndex = 0;
@@ -14,16 +16,18 @@
 	/* creates selectors based on how many images there are 
 	and removes the active class from every image element*/
 
-	$slideshowImages.forEach(img => {
+	$slideshowImages.forEach((img) => {
 		img.classList.remove('active');
 
 		const el = document.createElement('div');
 		el.className = 'slideshow__selector';
 		$slideshowSelection.appendChild(el);
-		
-		$slideshowSelectors = Array.from(document.querySelectorAll('.slideshow__selector'));
+
+		$slideshowSelectors = Array.from(
+			document.querySelectorAll('.slideshow__selector')
+		);
 	});
-	
+
 	// FUNCTIONS
 
 	function imageSwitch(type, index) {
@@ -42,14 +46,14 @@
 			autoSwitch = setInterval(() => imageSwitch('cycle'), TIMING);
 		}
 
-		switch(type) {
+		switch (type) {
 			case 'reset':
 				selectImage();
 				break;
 			case 'cycle':
 				removeImage();
-				currentIndex === $slideshowImages.length - 1 
-					? currentIndex = 0 
+				currentIndex === $slideshowImages.length - 1
+					? (currentIndex = 0)
 					: currentIndex++;
 				selectImage();
 				resetTimer();
@@ -57,21 +61,23 @@
 			case 'select':
 				if (index !== currentIndex) {
 					removeImage();
-					currentIndex = index
+					currentIndex = index;
 					selectImage();
-				};
+				}
 				resetTimer();
 				break;
 		}
 	}
 
 	//EVENTS
-	$slideshow.addEventListener('click', () => imageSwitch('cycle'))
-	$slideshowSelectors.forEach(selector => selector.addEventListener('click', () => {
-		event.stopPropagation();
-		imageSwitch('select', $slideshowSelectors.indexOf(event.target));
-	}))
+	$slideshow.addEventListener('click', () => imageSwitch('cycle'));
+	$slideshowSelectors.forEach((selector) =>
+		selector.addEventListener('click', () => {
+			event.stopPropagation();
+			imageSwitch('select', $slideshowSelectors.indexOf(event.target));
+		})
+	);
 
 	// INIT
 	imageSwitch('reset');
-}())
+})();
